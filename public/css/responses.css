@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+:root {
+	--dark-color-a: #F69D5C;
+	--dark-color-b: #F69D5C;
+	--light-color: #e9e4e1;
+	--success-color: #5cb85c;
+	--error-color: #d9534f;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	background: #e9e4e1;	
+	margin: 20px;
+}
+
+#enterComment{
+	text-align: center;
+	border: #F69D5C 3px solid;
+	background: #F69D5C;
+	border-radius: 25px;
+	width: 80%;
+	margin: auto;
+	padding-top: 15px;
+}
+#commentInput{
+	width:80%;
+	height: 100px;
+	
+	font-size: 20px;
+}
+
+.question-container{
+	background-color: #F69D5C;
+}
+
+#question-box{
+	background: white;
+	margin:15px;
+}
+
+#username-box{
+	background:white;
+	margin: 15px;
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>LearnIt</title>
+        <link rel="stylesheet" href="css/style.css" />
+	</head>
+	<body>
+		<div class="join-container">
+			<header class="join-header">
+				<h1><i class="fa fa-book"></i> LearnIt</h1>
+				<h5>Remote learning solution for students</h5>
+			</header>
+			<main class="join-main">
+				<form action="menu.html"> 
+					<div class="form-control">
+						<label for="username" id="username-label">Username:</label>
+						<input
+							type="text"
+							name="username"
+							id="username"
+							placeholder="Enter username..."
+							required
+						/>
+					</div>
+					<div class="form-control">
+						<label for="qualification">Qualifications: </label>
+						<select name="qualification" id="qualification">
+							<option value="Student">Student</option>
+							<option value="Teacher">Teacher</option>
+							<option value="Professional">Professional</option>
+						</select>
+					</div>
+					<button type="submit" class="btn">Join</button>
+				</form>
+			</main>
+		</div>
+	</body>
+</html>
