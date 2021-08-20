@@ -1,11 +1,31 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
-:root {
-	--dark-color-a: #F69D5C;
-	--dark-color-b: #F69D5C;
-	--light-color: #e9e4e1;
-	--success-color: #5cb85c;
-	--error-color: #d9534f;
+
+
+.posted-comments{
+    background-color: #F69D5C;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 20px;
+    flex-direction: column;
+    min-height: 0px;
+    min-width: 0px;
+    border-radius: 15px;
+    width: 80%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.comments{
+    background-color: white;
+    margin: 15px;
+    width: auto;
+    border-radius: 15px;
+}
+
+.comments p{
+    margin-left: 15px;
 }
 
 body {
@@ -15,32 +35,53 @@ body {
 	margin: 20px;
 }
 
-#enterComment{
-	text-align: center;
-	border: #F69D5C 3px solid;
-	background: #F69D5C;
-	border-radius: 25px;
-	width: 80%;
-	margin: auto;
-	padding-top: 15px;
+.btn {
+	cursor: pointer;
+	padding: 5px 15px;
+	background:#89CCF2;
+	color: white;
+	border: 0;
+	font-size: 17px;
+	font-weight: bold;
+	border-radius: 15px;
 }
-#commentInput{
-	width:80%;
-	height: 100px;
-	
-	font-size: 20px;
-}
+
 
 .question-container{
 	background-color: #F69D5C;
+	padding: 10px;	
+	border-radius: 15px;
 }
 
 #question-box{
 	background: white;
-	margin:15px;
+	padding-bottom: 5px;
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+	padding-left: 5px;
 }
 
 #username-box{
 	background:white;
-	margin: 15px;
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+	padding-left: 5px;
 }
+
+#comment-container{
+
+	margin-top: 10px;
+	border-radius: 15px;
+	
+}
+
+#comment-form {
+
+	background-color: #F69D5C;
+	display:flex;
+	justify-content: center;
+	padding: 5px;
+	border-radius: 15px;
+	
+}
+

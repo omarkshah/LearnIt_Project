@@ -1,5 +1,5 @@
 const postBox = document.getElementById('post-box-form');
-
+var idBtn = undefined;
 
 //Getting username and qualification from the URL 
 const {username, qualification} = Qs.parse(location.search,{
@@ -13,12 +13,13 @@ socket.emit('joinApp', {username, qualification});
 
 //On postmade outputting the text and username
 socket.on('postMade', (post) => {
-   
-
     postQuestion(post);
-
-
 })
+
+socket.on('getUserInfo', (id) => {
+    socket.emit('sendUserInfo', (username, qualification));
+})
+
 
 socket.on('output-posts', data => {
  
@@ -59,7 +60,6 @@ postBox.addEventListener('submit', e => {
 
 })
 
-//Posting question to DOM
 function postQuestion(question){
     const div = document.createElement('div');
     div.classList.add('message');
@@ -72,11 +72,9 @@ function postQuestion(question){
     para.innerText = question.question;
     div.appendChild(para);
     const a = document.createElement('a');
-    a.href = '/post/' + question._id;
-    a.innerText = 'Comment'
-    // a.onclick = function myFunction(){
-    //     socket.emit('comment-clicked', (question.question));
-    // }
+    a.href = `/responses.html?${question._id}`;
+    a.classList = 'comment-link';
+    a.innerText = 'Comment';
     div.appendChild(a);
     const imag =  document.createElement("IMG");
     imag.src = "comment_logo.png";
