@@ -20,18 +20,30 @@
             </div>
         </div>
 
-        <div id = 'enterComment'>
-            <div class="comments">
-                <textarea id= "commentInput" cols="40" placeholder="Enter Comment..."></textarea>
-            </div>
-            <button class="btn" id="comment-button">COMMENT</button>
-            
-        </div>
-
         <div class="posted-comments">
 
         </div>
 
-        
+
+        <div id = 'comment-container'>
+
+            <form id ="comment-form">
+                <textarea id= "comment-input" cols="40" placeholder="Enter Comment..."></textarea>
+           
+                <br>
+
+                <button class="btn" id="comment-button">COMMENT</button>
+            
+           </form>
+
+        </div>
+
+    <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
+    integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4="
+    crossorigin="anonymous"
+    ></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/responses.js"></script>
     </body>
 </html>
