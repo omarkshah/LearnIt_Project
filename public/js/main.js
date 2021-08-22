@@ -72,7 +72,7 @@ function postQuestion(question){
     para.innerText = question.question;
     div.appendChild(para);
     const a = document.createElement('a');
-    a.href = `/responses.html?${question._id}`;
+    a.href = `/responses.html?${question._id}&username=${question.username}&qualification=${question.qualification}&currUser=${username}&currQual=${qualification}`;
     a.classList = 'comment-link';
     a.innerText = 'Comment';
     div.appendChild(a);

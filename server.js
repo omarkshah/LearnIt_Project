@@ -9,7 +9,12 @@ const io = socketio(server);
 const formatQuestion = require('./utils/questions');
 const {userJoin, getCurrentUser} = require('./utils/users');
 const Post = require('./models/posts');
+const Comment = require('./models/comments');
 const mongoDB = 'mongodb+srv://LearnItDev__Omar:dev@LearnIt@cluster0.wqog7.mongodb.net/posts-DB?retryWrites=true&w=majority'
+
+let user = undefined;
+let username = '';
+let qualification = ''
 
 //connecting to mongoose
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
@@ -20,18 +25,6 @@ mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true }).t
 
 //Setting the static folder
 app.use(express.static(path.join(__dirname,'public')));
-
-// app.get('/post/:id', function(req, res){
-    
-//     res.sendFile('./public/responses.html', {"root": __dirname});
-
-//     // res.send(req.params.id);
-
-//     // Post.find({ "_id": req.params.id}).limit(1).then(result => {
-//     //     console.log(result);
-//     // });
-// })
-
 
 //Server listenting for connection
 io.on('connection', socket => {
@@ -47,16 +40,7 @@ io.on('connection', socket => {
                 //console.log(username + " " + qualification + "pepe");
                 socket.emit('return-question', (result));
             }); 
-        //}) 
-
-        socket.on('get-UQ', () => {
-            socket.emit(getUserInfo);
-        })
-
-        socket.on('sendUserInfo', (username, qualification)=> {
-            socket.emit('send-UQ', (username, qualification));
-        })
-
+    
     });
 
     console.log("connection made");
@@ -70,9 +54,10 @@ io.on('connection', socket => {
  
     //Listening for post in order to emit postMade
     socket.on('post', (question) =>{
-        const user = getCurrentUser(socket.id);
+        user = getCurrentUser(socket.id);
         username = user.username;
         qualification = user.qualification;
+      
 
         const post = new Post({question, username, qualification});
 
@@ -83,6 +68,32 @@ io.on('connection', socket => {
         
     });    
 
+    
+    socket.on('comment', (comment) => {
+
+
+
+        console.log(username +  " " + qualification);
+
+        socket.emit('commentPost', (comment));
+    })
+
+
+    //  console.log(getCurrentUser(socket.id).username);;
+
+    socket.on('commentPosted', (usrName, usrQual, usrComment, postId) => {
+
+        console.log(usrName + "  " + usrQual + "  " + usrComment + "  " + postId );   
+
+
+        const commentss = new Comment({usrComment, usrName, usrQual, postId});
+
+        commentss.save().then(() => {
+            io.emit('commentMade', (commentss));
+        })
+
+    });
+ 
 })
 
 module.exports = mongoDB;

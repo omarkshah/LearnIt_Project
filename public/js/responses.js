@@ -1,37 +1,63 @@
 const usernameBox = document.getElementById('username-box');
 const questionBox = document.getElementById('question-box');
-
+const commentForm = document.getElementById('comment-form');
 const socket = io();
+let uName = '';
+let uQual = '';
 
+const qsArr = window.location.search.slice(1).split('&');
 
-
-socket.emit('link-clicked', (window.location.search.slice(1)));
+socket.emit('link-clicked', (qsArr[0]));
 
 socket.on('return-question', (post, username, qualification) => {
+
+    uName = qsArr[1].split('=')[1]; //name
+    uQual = qsArr[2].split('=')[1]; //qualification
+
     usernameBox.innerText = post["username"] + ", " + post["qualification"];
     questionBox.innerText = post["question"];
-
-    let uName = '';
-    let qual = '';    
-
-    socket.emit('getUserInfo');
-
-    socket.on('sendUserInfo', (username, qualification) => {
-        uName = username;
-        qual = qualification;
-
-        console.log('am here');
-    } );
-
-    socket.on('send-UQ', (username, qualification) => {
-    
-    comment = {username: uName, qualification: qual, comment:"sure i can help"}
-
-    postComment(comment);
-    });
-
-
 });
+
+const currName = qsArr[3].split('-')[1]; // current user's name
+const currQual = qsArr[4].split('-')[1];
+
+socket.on('commentPost', (comment) => {
+    commentObj = {"comment": comment, "username": qsArr[3].split('-')[1], "qualification": qsArr[4].split('-')[1], "pId": qsArr[0]};
+
+    const commentTxt = commentObj.comment;
+    const commentUs = commentObj.username;
+    const commentQual = commentObj.qualification;
+    const commentId = commentObj.pId;
+
+    console.log(typeof commentTxt + "  " + typeof commentUs + " " + typeof commentQual + "  " + typeof commentId + " fddddddddd");
+
+    socket.emit('commentPosted', (commentTxt, commentUs, commentQual, commentId));
+})
+
+socket.on('commentMade', (comment)=>{
+    postComment(comment);
+});
+
+//Post button submit
+commentForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    //getting the question from the post Box 
+    let comment = e.target.elements.commentInput.value;
+
+    comment = comment.trim();
+
+    if(!comment){
+        return false;
+    }
+
+    //Emitting message to the server
+    socket.emit('comment', (comment));
+
+    //clearning the postbox values
+   // e.target.elements.commentInput.value.clear();
+    e.target.elements.commentInput.focus();
+})
 
 
 function postComment(comment){
